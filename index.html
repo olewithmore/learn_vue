@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="exercise">
+        <p>VueJs is pretty cool - {{ myName }} ({{ myAge }})</p>
+        <p>{{ myAge * 3 }}</p>
+
+        <p>{{ randomNumber() }}</p>
+
+        <div>
+            <img v-bind:src="imgLink" alt="">
+        </div>
+
+        <div>
+            <input type="text" v-bind:value="myName">
+        </div>
+
+        <hr>
+
+        <div>
+            <button type="button" v-on:click="increase(2, $event)"> click </button>
+            <button type="button" v-on:click="counter++"> click </button>
+            <p> {{ counter }}</p>
+            <p v-on:mousemove="updateCoordinates">
+                Coordinates: {{ x }} / {{ y }}
+                - <span v-on:mousemove.stop="">DEAD SPOT</span>
+            </p>
+        </div>
+        <input type="text" v-on:keyup.enter="alertMe">
+    </div>
+    <script>
+
+        var prom1 = new Promise((resolve) => {
+            resolve('prom1');
+        });
+        var prom2 = new Promise((resolve) => {
+            resolve('prom2');
+        });
+        var prom3 = new Promise((resolve, reject) => {
+            reject('prom3');
+        });
+
+        let promAll = Promise.all([prom1, prom2, prom3]);
+        promAll.then((val) => {
+            console.log(val);
+        }).catch((val) => {
+            console.log(val);
+        });
+
+        new Vue({
+            el: '#exercise',
+            data: function(){
+                return {
+                    myName: 'Ole Withmore',
+                    myAge: 26,
+                    imgLink: 'https://camo.mybb.com/e01de90be6012adc1b1701dba899491a9348ae79/687474703a2f2f7777772e6a71756572797363726970742e6e65742f696d616765732f53696d706c6573742d526573706f6e736976652d6a51756572792d496d6167652d4c69676874626f782d506c7567696e2d73696d706c652d6c69676874626f782e6a7067',
+                    counter: 0,
+                    x: 0,
+                    y: 0
+                }
+            },
+            methods: {
+                changeTitle (event) {
+                    this.title = event.target.value;
+                },
+                sayHello () {
+                    this.title = 'Hello!';
+                    return this.title;
+                },
+                randomNumber () {
+                    return (Math.floor((Math.random() * 10) + 1) % 2);
+                },
+                increase (step, event) {
+                    this.counter += step;
+                },
+                updateCoordinates (event) {
+                    //console.log(event);
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+                dummy: function(event) {
+                    event.stopPropagation();
+                },
+                alertMe: function () {
+                    alert('Alert');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

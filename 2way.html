@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="name">
+        <p>{{ name }}</p>
+        <hr>
+
+        <button v-on:click="counter++">Increase</button>
+        <button v-on:click="counter--">Decrease</button>
+        <button v-on:click="secondCounter++">Increas Second</button>
+        <p>Counter: {{ counter }}</p>
+        <p>Result: {{ result() }} | {{ output }}</p>
+        <hr>
+
+        //saving time with shothand
+        <button @click="changeLink">Click to change link</button>
+        <a v-bind:href="link">Link</a>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                name: 'Max',
+                counter: 0,
+                secondCounter: 0,
+                link: 'http://www.google.com'
+            },
+            computed:{
+              output () {
+                  return this.counter > 5 ? 'Greater 5' : 'Smaller than 5';
+              }
+            },
+            watch: {
+                counter (value) {
+                    console.log('conuter change ::');
+                    if(value > 6){
+                        this.counter = 0;
+                    }
+                }
+            },
+            methods: {
+                result () {
+                    return this.counter > 5 ? 'Greater 5' : 'Smaller than 5'
+                },
+                changeLink () {
+                    this.link = 'http://www.apple.com'
+                }
+
+            },
+        });
+    </script>
+</body>
+</html>

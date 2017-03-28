@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="increase($event, 2)">Button</button>
+        <p>{{ counter }}</p>
+        <p v-on:mousemove="updateCoordinates"> Coordinates: {{ x }} / {{ y }} - <span v-on:mousemove.stop="dummy"> DEAD SPOT </span> </p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                counter: 0,
+                x: 0,
+                y: 0
+            },
+            methods: {
+                increase: function(event, numIncrement){
+                    console.log(event, numIncrement);
+                    this.counter++;
+                },
+                updateCoordinates: function(event) {
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+                dummy: function (event){
+                    event.stopPropagation();
+                    console.log(1111);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="exercise">
+    <div>
+        <button v-on:click="alertMe">Show Alert</button>
+    </div>
+
+    <div>
+        <input type="text" v-on:input="normalInput">
+        <p>{{ value }}</p>
+    </div>
+
+    <div>
+        <input type="text" v-on:keyup.enter="enterInput">
+        <p>{{ value }}</p>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#exercise',
+        data: function(){
+            return {
+                value: ''
+            }
+        },
+        methods: {
+            normalInput (event) {
+                this.value = event.target.value;
+            },
+            enterInput (event) {
+                this.value = event.target.value;
+            },
+            alertMe: function () {
+                alert('Alert');
+            }
+        }
+    });
+</script>
+</body>
+</html>
